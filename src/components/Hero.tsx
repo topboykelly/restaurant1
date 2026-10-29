@@ -17,20 +17,20 @@ export function Hero() {
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-16 pt-32 md:px-8 md:pb-24">
-        <div className="w-full max-w-2xl animate-fade-up">
-          <p className="mb-4 font-display text-[clamp(2.35rem,11.5vw,5.5rem)] font-extrabold leading-[0.92] tracking-[-0.04em] text-white uppercase sm:text-6xl sm:tracking-tight md:text-7xl lg:text-8xl">
-            <span className="block w-full break-words">Baguette</span>
-            <span className="font-script text-[0.72em] font-normal normal-case tracking-normal text-[var(--color-citrus)]">
+        <div className="max-w-2xl animate-fade-up">
+          <p className="mb-4 font-display text-[clamp(2.1rem,9.2vw,5.5rem)] font-extrabold leading-none tracking-tight text-white uppercase sm:text-6xl md:text-7xl lg:text-8xl">
+            <span className="block whitespace-nowrap">Baguette</span>
+            <span className="block font-script text-[0.72em] font-normal normal-case tracking-normal text-[var(--color-citrus)]">
               Sub
             </span>
           </p>
-          <p className="mb-8 max-w-md text-base text-white/85 sm:text-lg md:text-xl">
+          <p className="mb-8 max-w-md text-lg text-white/85 md:text-xl">
             {site.tagline}
           </p>
-          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+          <div className="flex flex-wrap items-center gap-3">
             <a
               href={`tel:${site.phoneTel}`}
-              className="inline-flex justify-center rounded-sm bg-[var(--color-forest)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[var(--color-forest-bright)] sm:justify-start"
+              className="rounded-sm bg-[var(--color-forest)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[var(--color-forest-bright)]"
             >
               Call {site.phoneDisplay}
             </a>
@@ -38,12 +38,9 @@ export function Hero() {
               href={site.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex justify-center rounded-sm border border-white/40 px-5 py-3 text-sm font-semibold text-white transition hover:border-white hover:bg-white/10 sm:justify-start"
+              className="rounded-sm border border-white/40 px-5 py-3 text-sm font-semibold text-white transition hover:border-white hover:bg-white/10"
             >
-              <span className="sm:hidden">Instagram</span>
-              <span className="hidden sm:inline">
-                Instagram {site.instagramHandle}
-              </span>
+              Instagram {site.instagramHandle}
             </a>
           </div>
         </div>
