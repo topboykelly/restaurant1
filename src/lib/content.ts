@@ -9,9 +9,8 @@ export const site = {
   address: "La-Bawaleshi Rd, East Legon, Accra",
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=BaguetteSub+Restaurant+La-Bawaleshi+Rd+East+Legon+Accra",
-  /** Approx. pin on La Bawaleshi Rd / East Legon (near A&C Mall). */
-  mapCenter: { lat: 5.6428, lng: -0.1532 },
-  mapZoom: 16,
+  mapsEmbedUrl:
+    "https://maps.google.com/maps?q=BaguetteSub+Restaurant+La-Bawaleshi+Rd+East+Legon+Accra&z=16&output=embed",
   instagram: "https://www.instagram.com/baguettesub.gh/",
   instagramHandle: "@baguettesub.gh",
   hours: [
