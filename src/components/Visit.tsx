@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { site } from "@/lib/content";
 
 export function Visit() {
+  const [mapActive, setMapActive] = useState(false);
+
   return (
     <section
       id="visit"
@@ -15,22 +18,37 @@ export function Visit() {
         </h2>
       </div>
 
-      <div className="relative w-full border-y border-[var(--color-ink)]/10">
+      <div
+        className="relative w-full border-y border-[var(--color-ink)]/10"
+        onMouseLeave={() => setMapActive(false)}
+      >
         <div className="relative h-[min(62vh,520px)] w-full min-h-[280px]">
           <iframe
             title="BaguetteSub Restaurant on Google Maps"
             src={site.mapsEmbedUrl}
-            className="absolute inset-0 h-full w-full border-0"
+            className={`absolute inset-0 h-full w-full border-0 ${
+              mapActive ? "pointer-events-auto" : "pointer-events-none"
+            }`}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             allowFullScreen
           />
+
+          {!mapActive && (
+            <button
+              type="button"
+              aria-label="Activate map"
+              className="absolute inset-0 z-10 cursor-pointer bg-transparent"
+              onClick={() => setMapActive(true)}
+              onTouchStart={() => setMapActive(true)}
+            />
+          )}
         </div>
         <a
           href={site.mapsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="absolute right-4 bottom-4 z-10 rounded-sm bg-white px-3 py-2 text-xs font-semibold text-[var(--color-ink)] shadow-sm transition hover:bg-[var(--color-cream)]"
+          className="absolute right-4 bottom-4 z-20 rounded-sm bg-white px-3 py-2 text-xs font-semibold text-[var(--color-ink)] shadow-sm transition hover:bg-[var(--color-cream)]"
         >
           Open in Google Maps
         </a>
