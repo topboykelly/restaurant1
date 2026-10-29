@@ -2,26 +2,16 @@ import { site } from "@/lib/content";
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-[var(--color-ink)] py-12 text-[var(--color-cream)]">
-      <div className="mx-auto flex max-w-6xl flex-col gap-8 px-5 md:flex-row md:items-end md:justify-between md:px-8">
-        <div>
-          <p className="font-display text-2xl font-extrabold tracking-tight uppercase">
-            Baguette
-            <span className="font-script text-[var(--color-citrus)] normal-case">
-              {" "}
-              Sub
-            </span>
-          </p>
-          <p className="mt-2 max-w-sm text-sm text-[var(--color-cream-muted)]">
-            {site.address}
-            <br />
-            <a href={`tel:${site.phoneTel}`} className="hover:text-white">
-              {site.phoneDisplay}
-            </a>
-          </p>
-        </div>
-
-        <div className="flex flex-wrap gap-5 text-sm">
+    <footer className="border-t border-white/10 bg-[var(--color-ink)] py-8 text-[var(--color-cream)]">
+      <div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 md:flex-row md:items-center md:justify-between md:px-8">
+        <p className="font-display text-lg font-extrabold tracking-tight uppercase">
+          Baguette
+          <span className="font-script text-[var(--color-citrus)] normal-case">
+            {" "}
+            Sub
+          </span>
+        </p>
+        <div className="flex flex-wrap gap-5 text-sm text-[var(--color-cream-muted)]">
           <a
             href={`https://wa.me/${site.whatsapp}`}
             target="_blank"
@@ -48,10 +38,10 @@ export function Footer() {
           </a>
         </div>
       </div>
-      <div className="mx-auto mt-10 max-w-6xl px-5 md:px-8">
+      <div className="mx-auto mt-6 max-w-6xl px-5 md:px-8">
         <p className="text-xs text-[var(--color-cream-muted)]">
-          Demo marketing site — menu items and hours are illustrative placeholders,
-          not an official listing.
+          Demo marketing site — menu items and hours are illustrative
+          placeholders, not an official listing.
         </p>
       </div>
     </footer>
