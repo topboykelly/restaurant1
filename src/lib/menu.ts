@@ -131,8 +131,8 @@ export const menuSections: MenuSection[] = [
   {
     id: "sandwiches",
     name: "Sandwiches",
-    image: img("photo-1509722747041-616f39b57569"),
-    imageAlt: "Fresh baguette sandwich",
+    image: "/menu/sandwiches.jpg",
+    imageAlt: "Chicken baguette sub with fries",
     groups: [
       {
         title: "Submarine sandwiches",
@@ -240,8 +240,8 @@ export const menuSections: MenuSection[] = [
   {
     id: "burgers",
     name: "Burgers & tenders",
-    image: img("photo-1551782450-a2132b4ba21d"),
-    imageAlt: "Classic burger with fries",
+    image: "/menu/burger.jpg",
+    imageAlt: "Chicken burger with fries and sauce",
     groups: [
       {
         title: "Burgers",
@@ -367,8 +367,8 @@ export const menuSections: MenuSection[] = [
     id: "pizza",
     name: "Pizza",
     note: "Ask about sizes and sides",
-    image: img("photo-1513104890138-7c749659a591"),
-    imageAlt: "Fresh baked pizza",
+    image: "/menu/pizza.jpg",
+    imageAlt: "Vegetable pizza with a cheese pull",
     groups: [
       {
         items: [
@@ -457,8 +457,8 @@ export const menuSections: MenuSection[] = [
   {
     id: "mains",
     name: "Main course",
-    image: img("photo-1544025162-d76694265947"),
-    imageAlt: "Grilled main course platter",
+    image: "/menu/mains.jpg",
+    imageAlt: "Grilled kebabs with vegetable fried rice",
     groups: [
       {
         items: [

@@ -55,32 +55,28 @@ export const menuCategories: MenuCategory[] = [
     name: "Sandwiches",
     description: "Subs and baguettes, loaded.",
     priceFrom: "From GHS 160",
-    image:
-      "https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=900&q=80",
+    image: "/menu/sandwiches.jpg",
     href: "/menu#sandwiches",
   },
   {
     name: "Burgers",
     description: "Classic, crispy and stacked.",
     priceFrom: "From GHS 170",
-    image:
-      "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?auto=format&fit=crop&w=900&q=80",
+    image: "/menu/burger.jpg",
     href: "/menu#burgers",
   },
   {
     name: "Pizza",
     description: "Hot from the oven.",
     priceFrom: "From GHS 195",
-    image:
-      "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=80",
+    image: "/menu/pizza.jpg",
     href: "/menu#pizza",
   },
   {
     name: "Main course",
     description: "Platters built for real hunger.",
     priceFrom: "From GHS 200",
-    image:
-      "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80",
+    image: "/menu/mains.jpg",
     href: "/menu#mains",
   },
   {
