@@ -9,19 +9,16 @@
     />
     <script>
       (function () {
+        /* Stable fallback only — do not track visualViewport (causes hero jump). */
+        if (typeof CSS !== "undefined" && CSS.supports("height", "100lvh")) return;
         function setAppHeight() {
-          var visual = window.visualViewport ? window.visualViewport.height : 0;
-          var height = Math.max(window.innerHeight || 0, visual || 0);
           document.documentElement.style.setProperty(
             "--app-height",
-            Math.round(height) + "px",
+            Math.round(window.innerHeight || 0) + "px",
           );
         }
         setAppHeight();
-        window.addEventListener("resize", setAppHeight);
-        if (window.visualViewport) {
-          window.visualViewport.addEventListener("resize", setAppHeight);
-        }
+        window.addEventListener("orientationchange", setAppHeight);
       })();
     </script>
     <title>BaguetteSub Restaurant | East Legon, Accra</title>

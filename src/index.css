@@ -59,15 +59,14 @@ body {
   max-width: 100%;
 }
 
+/* Lock to large viewport so height stays put when mobile chrome toggles. */
 .hero-screen {
   box-sizing: border-box;
   width: 100%;
   min-height: 100vh;
-  min-height: 100dvh;
   min-height: 100lvh;
-  min-height: -webkit-fill-available;
-  min-height: var(--app-height);
-  height: var(--app-height);
+  height: 100vh;
+  height: 100lvh;
 }
 
 @keyframes fade-up {
@@ -96,6 +95,9 @@ body {
 
 .animate-ken-burns {
   animation: ken-burns 18s ease-out forwards;
+  transform-origin: center center;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .font-display {
