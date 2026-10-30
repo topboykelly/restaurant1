@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import { useScrollToHash } from "@/hooks/useScrollToHash";
 import { useViewportHeight } from "@/hooks/useViewportHeight";
 
@@ -15,6 +16,7 @@ export function Layout() {
         <Outlet />
       </main>
       <Footer />
+      <ScrollToTop />
     </div>
   );
 }

@@ -25,16 +25,20 @@ export function Hero() {
           <img
             key={slide.src}
             src={slide.src}
+            srcSet={slide.srcSet}
+            sizes="100vw"
             alt={slide.alt}
-            className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-1000 ease-out ${
+            className={`absolute inset-0 h-full w-full object-cover object-[center_35%] transition-opacity duration-1000 ease-out ${
               i === active ? "opacity-100 animate-ken-burns" : "opacity-0"
             }`}
             fetchPriority={i === 0 ? "high" : "low"}
+            decoding="async"
             aria-hidden={i !== active}
           />
         ))}
-        <div className="absolute inset-0 bg-[linear-gradient(100deg,rgba(8,10,6,0.9)_0%,rgba(8,10,6,0.68)_40%,rgba(8,10,6,0.32)_68%,rgba(8,10,6,0.18)_100%)]" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/20" />
+        {/* Lighter scrims so food stays sharp while text remains readable */}
+        <div className="absolute inset-0 bg-[linear-gradient(105deg,rgba(8,10,6,0.72)_0%,rgba(8,10,6,0.42)_38%,rgba(8,10,6,0.12)_62%,rgba(8,10,6,0.04)_100%)]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/10" />
       </div>
 
       <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col justify-end px-6 pb-10 pt-32 sm:px-8 sm:pb-12 md:pb-20">
