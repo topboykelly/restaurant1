@@ -1,21 +1,74 @@
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { images, site } from "@/lib/content";
 
 export function Hero() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // React's `muted` prop can miss the DOM property browsers check for autoplay.
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+
+    const showFrame = () => {
+      // Ensure a decoded frame is painted even when autoplay is blocked.
+      if (video.readyState >= 2) {
+        try {
+          video.currentTime = Math.min(0.05, (video.duration || 1) * 0.01);
+        } catch {
+          /* ignore seek errors before metadata */
+        }
+        setReady(true);
+      }
+    };
+
+    const tryPlay = () => {
+      showFrame();
+      const play = video.play();
+      if (play !== undefined) {
+        play.catch(() => {
+          // Autoplay blocked — first frame stays visible (no play button).
+          video.pause();
+          showFrame();
+        });
+      }
+    };
+
+    const onVisible = () => {
+      if (document.visibilityState === "visible" && video.paused) tryPlay();
+    };
+
+    if (video.readyState >= 2) tryPlay();
+    video.addEventListener("loadeddata", tryPlay);
+    document.addEventListener("visibilitychange", onVisible);
+
+    return () => {
+      video.removeEventListener("loadeddata", tryPlay);
+      document.removeEventListener("visibilitychange", onVisible);
+    };
+  }, []);
+
   return (
     <section
       id="top"
-      className="hero-screen relative flex w-full items-end overflow-hidden"
+      className="hero-screen relative flex w-full items-end overflow-hidden bg-[#0a0c08]"
     >
       <div className="absolute inset-0">
         <video
-          className="absolute inset-0 h-full w-full object-cover object-[center_35%]"
+          ref={videoRef}
+          className={`absolute inset-0 h-full w-full object-cover object-[center_35%] transition-opacity duration-500 ${
+            ready ? "opacity-100" : "opacity-0"
+          }`}
           autoPlay
           muted
           loop
           playsInline
           preload="auto"
-          poster={images.hero}
           aria-label="BaguetteSub restaurant atmosphere"
         >
           <source src={images.heroVideo} type="video/mp4" />
