@@ -1,41 +1,25 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { images, site } from "@/lib/content";
 
-const SLIDE_MS = 4500;
-
 export function Hero() {
-  const slides = images.heroSlides;
-  const [active, setActive] = useState(0);
-
-  useEffect(() => {
-    const id = window.setInterval(() => {
-      setActive((i) => (i + 1) % slides.length);
-    }, SLIDE_MS);
-    return () => window.clearInterval(id);
-  }, [slides.length]);
-
   return (
     <section
       id="top"
       className="hero-screen relative flex w-full items-end overflow-hidden"
     >
       <div className="absolute inset-0">
-        {slides.map((slide, i) => (
-          <img
-            key={slide.src}
-            src={slide.src}
-            srcSet={slide.srcSet}
-            sizes="100vw"
-            alt={slide.alt}
-            className={`absolute inset-0 h-full w-full object-cover object-[center_35%] transition-opacity duration-1000 ease-out ${
-              i === active ? "opacity-100 animate-ken-burns" : "opacity-0"
-            }`}
-            fetchPriority={i === 0 ? "high" : "low"}
-            decoding="async"
-            aria-hidden={i !== active}
-          />
-        ))}
+        <video
+          className="absolute inset-0 h-full w-full object-cover object-[center_35%]"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          poster={images.hero}
+          aria-label="BaguetteSub restaurant atmosphere"
+        >
+          <source src={images.heroVideo} type="video/mp4" />
+        </video>
         {/* Lighter scrims so food stays sharp while text remains readable */}
         <div className="absolute inset-0 bg-[linear-gradient(105deg,rgba(8,10,6,0.72)_0%,rgba(8,10,6,0.42)_38%,rgba(8,10,6,0.12)_62%,rgba(8,10,6,0.04)_100%)]" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/10" />
@@ -63,23 +47,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="mt-8 flex w-full flex-col items-center gap-4 sm:mt-10 md:mt-12 md:flex-row md:items-center md:justify-between">
-          <div className="flex items-center gap-2" aria-label="Hero image slides">
-            {slides.map((_, i) => (
-              <button
-                key={i}
-                type="button"
-                aria-label={`Show hero image ${i + 1}`}
-                aria-current={i === active}
-                onClick={() => setActive(i)}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  i === active
-                    ? "w-6 bg-[var(--color-lime)]"
-                    : "w-1.5 bg-white/35 hover:bg-white/60"
-                }`}
-              />
-            ))}
-          </div>
+        <div className="mt-8 flex w-full justify-center sm:mt-10 md:mt-12 md:justify-end">
           <p className="flex items-center gap-2 text-[0.65rem] font-medium tracking-[0.16em] text-white/50 uppercase sm:text-[0.7rem]">
             <svg
               viewBox="0 0 24 24"

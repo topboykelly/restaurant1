@@ -102,29 +102,9 @@ export const menuCategories: MenuCategory[] = [
 ];
 
 export const images = {
-  // First-launch Unsplash grill plate (keep as primary hero for now).
   hero:
     "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=2400&q=90",
-  heroSlides: [
-    {
-      src: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=2400&q=90",
-      srcSet:
-        "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1400&q=85 1400w, https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=2400&q=90 2400w",
-      alt: "Grilled meats and sides on a shared plate",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=2400&q=90",
-      srcSet:
-        "https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=1400&q=85 1400w, https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=2400&q=90 2400w",
-      alt: "Fresh baguette sandwich cut and ready to serve",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=2400&q=90",
-      srcSet:
-        "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1400&q=85 1400w, https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=2400&q=90 2400w",
-      alt: "Hearty plated meal with vegetables",
-    },
-  ],
+  heroVideo: "/hero.mp4",
   vibe:
     "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1400&q=80",
   space:
