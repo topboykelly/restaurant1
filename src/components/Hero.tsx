@@ -1,48 +1,92 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { images, site } from "@/lib/content";
 
+const SLIDE_MS = 4500;
+
 export function Hero() {
+  const slides = images.heroSlides;
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      setActive((i) => (i + 1) % slides.length);
+    }, SLIDE_MS);
+    return () => window.clearInterval(id);
+  }, [slides.length]);
+
   return (
     <section
       id="top"
-      className="relative flex min-h-[100svh] items-end overflow-hidden"
+      className="hero-screen relative flex w-full items-end overflow-hidden"
     >
       <div className="absolute inset-0">
-        <img
-          src={images.hero}
-          alt="Grilled plates and warm restaurant atmosphere"
-          className="absolute inset-0 h-full w-full object-cover object-center animate-ken-burns"
-          fetchPriority="high"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-ink)] via-[var(--color-ink)]/55 to-[var(--color-forest)]/35" />
+        {slides.map((slide, i) => (
+          <img
+            key={slide.src}
+            src={slide.src}
+            alt={slide.alt}
+            className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-1000 ease-out ${
+              i === active ? "opacity-100 animate-ken-burns" : "opacity-0"
+            }`}
+            fetchPriority={i === 0 ? "high" : "low"}
+            aria-hidden={i !== active}
+          />
+        ))}
+        <div className="absolute inset-0 bg-[linear-gradient(100deg,rgba(8,10,6,0.9)_0%,rgba(8,10,6,0.68)_40%,rgba(8,10,6,0.32)_68%,rgba(8,10,6,0.18)_100%)]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/20" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-16 pt-32 md:px-8 md:pb-24">
-        <div className="max-w-2xl animate-fade-up">
-          <p className="mb-4 font-display text-[clamp(2.1rem,9.2vw,5.5rem)] font-extrabold leading-none tracking-tight text-white uppercase sm:text-6xl md:text-7xl lg:text-8xl">
-            <span className="block whitespace-nowrap">Baguette</span>
-            <span className="block font-script text-[0.72em] font-normal normal-case tracking-normal text-[var(--color-citrus)]">
-              Sub
-            </span>
-          </p>
-          <p className="mb-8 max-w-md text-lg text-white/85 md:text-xl">
+      <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col justify-end px-6 pb-10 pt-32 sm:px-8 sm:pb-12 md:pb-20">
+        <div className="mx-auto w-full max-w-xl animate-fade-up text-center md:mx-0 md:max-w-[32rem] md:text-left">
+          <p className="mb-3 text-[0.68rem] font-semibold tracking-[0.2em] text-[var(--color-lime)] uppercase sm:mb-4 sm:text-xs">
             {site.tagline}
           </p>
-          <div className="flex flex-wrap items-center gap-3">
-            <a
-              href={`tel:${site.phoneTel}`}
-              className="rounded-sm bg-[var(--color-forest)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[var(--color-forest-bright)]"
-            >
-              Call {site.phoneDisplay}
-            </a>
-            <a
-              href={site.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-sm border border-white/40 px-5 py-3 text-sm font-semibold text-white transition hover:border-white hover:bg-white/10"
-            >
-              Instagram {site.instagramHandle}
+          <h1 className="mb-3 font-display text-[clamp(1.75rem,5vw,3.25rem)] font-extrabold leading-[1.1] tracking-[-0.03em] text-balance text-white uppercase sm:mb-4">
+            {site.heroHeadline}
+          </h1>
+          <p className="mx-auto mb-7 max-w-md text-[0.95rem] leading-relaxed text-white/80 sm:mb-8 sm:text-lg md:mx-0">
+            {site.heroSupport}
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-3 md:justify-start">
+            <Link to="/menu" className="btn">
+              Explore the menu
+              <span aria-hidden="true">→</span>
+            </Link>
+            <a href="#visit" className="btn btn--ghost">
+              Find us
             </a>
           </div>
+        </div>
+
+        <div className="mt-8 flex w-full flex-col items-center gap-4 sm:mt-10 md:mt-12 md:flex-row md:items-center md:justify-between">
+          <div className="flex items-center gap-2" aria-label="Hero image slides">
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                aria-label={`Show hero image ${i + 1}`}
+                aria-current={i === active}
+                onClick={() => setActive(i)}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  i === active
+                    ? "w-6 bg-[var(--color-lime)]"
+                    : "w-1.5 bg-white/35 hover:bg-white/60"
+                }`}
+              />
+            ))}
+          </div>
+          <p className="flex items-center gap-2 text-[0.65rem] font-medium tracking-[0.16em] text-white/50 uppercase sm:text-[0.7rem]">
+            <svg
+              viewBox="0 0 24 24"
+              className="h-3.5 w-3.5 shrink-0 text-[var(--color-lime)]"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z" />
+            </svg>
+            {site.locationLine}
+          </p>
         </div>
       </div>
     </section>

@@ -2,21 +2,21 @@ import { images, vibeCopy } from "@/lib/content";
 
 export function Vibe() {
   return (
-    <section className="bg-[var(--color-cream)] py-20 md:py-28">
-      <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 md:grid-cols-2 md:gap-16 md:px-8">
-        <div>
+    <section id="story" className="bg-[var(--color-cream)] py-20 md:py-28">
+      <div className="mx-auto grid w-full max-w-6xl items-center gap-12 px-5 text-center md:grid-cols-2 md:gap-16 md:px-8 md:text-left">
+        <div className="mx-auto w-full min-w-0 max-w-xl md:mx-0">
           <p className="mb-3 text-sm font-semibold tracking-[0.18em] text-[var(--color-forest)] uppercase">
             {vibeCopy.eyebrow}
           </p>
-          <h2 className="mb-5 font-display text-4xl font-extrabold tracking-tight text-[var(--color-ink)] uppercase md:text-5xl">
+          <h2 className="mb-5 font-display text-2xl font-extrabold leading-[1.15] tracking-tight text-balance text-[var(--color-ink)] uppercase sm:text-3xl md:text-4xl">
             {vibeCopy.headline}
           </h2>
-          <p className="max-w-md text-lg leading-relaxed text-[var(--color-ink-muted)]">
+          <p className="mx-auto max-w-md text-base leading-relaxed text-[var(--color-ink-muted)] sm:text-lg md:mx-0">
             {vibeCopy.body}
           </p>
         </div>
 
-        <div className="relative aspect-[4/5] overflow-hidden md:aspect-[5/6]">
+        <div className="relative mx-auto aspect-[4/5] w-full min-w-0 max-w-md overflow-hidden md:mx-0 md:max-w-none md:aspect-[5/6]">
           <img
             src={images.vibe}
             alt="Bright modern restaurant dining room"

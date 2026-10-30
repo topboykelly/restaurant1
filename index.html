@@ -3,7 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <script>
+      (function () {
+        function setAppHeight() {
+          var visual = window.visualViewport ? window.visualViewport.height : 0;
+          var height = Math.max(window.innerHeight || 0, visual || 0);
+          document.documentElement.style.setProperty(
+            "--app-height",
+            Math.round(height) + "px",
+          );
+        }
+        setAppHeight();
+        window.addEventListener("resize", setAppHeight);
+        if (window.visualViewport) {
+          window.visualViewport.addEventListener("resize", setAppHeight);
+        }
+      })();
+    </script>
     <title>BaguetteSub Restaurant | East Legon, Accra</title>
     <meta
       name="description"

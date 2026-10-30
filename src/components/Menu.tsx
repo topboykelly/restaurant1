@@ -1,90 +1,63 @@
-import { useEffect, useRef, useState } from "react";
-import { menuItems, site } from "@/lib/content";
+import { Link } from "react-router-dom";
+import { menuCategories } from "@/lib/content";
 
 export function Menu() {
-  const ref = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <section
       id="menu"
-      ref={ref}
-      className="bg-[var(--color-ink)] py-20 text-[var(--color-cream)] md:py-28"
+      className="bg-[var(--color-ink)] pt-20 pb-10 text-white md:pt-28 md:pb-16"
     >
       <div className="mx-auto max-w-6xl px-5 md:px-8">
-        <div
-          className={`mb-12 max-w-xl transition duration-700 ${
-            visible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
-          }`}
-        >
-          <p className="mb-3 text-sm font-semibold tracking-[0.18em] text-[var(--color-citrus)] uppercase">
-            Menu highlights
-          </p>
-          <h2 className="mb-4 font-display text-4xl font-extrabold tracking-tight uppercase md:text-5xl">
-            What we&apos;re known for
-          </h2>
-          <p className="text-[var(--color-cream-muted)]">
-            A taste of the board — demo prices for this pitch site. Ask for
-            today&apos;s full menu when you visit or message us.
-          </p>
+        <div className="mb-12 flex flex-col items-center gap-6 text-center sm:mb-14 sm:flex-row sm:items-end sm:justify-between sm:text-left">
+          <div className="max-w-xl">
+            <p className="mb-3 text-xs font-semibold tracking-[0.22em] text-[var(--color-lime)] uppercase">
+              Our menu
+            </p>
+            <h2 className="font-display text-2xl font-extrabold tracking-tight text-balance uppercase sm:text-3xl md:text-4xl">
+              Fresh. Bold. Satisfying.
+            </h2>
+          </div>
+          <Link
+            to="/menu"
+            className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.16em] text-white/80 uppercase transition hover:text-[var(--color-lime)]"
+          >
+            Explore full menu
+            <span aria-hidden="true">→</span>
+          </Link>
         </div>
 
-        <ul className="divide-y divide-white/10 border-t border-white/10">
-          {menuItems.map((item, i) => (
-            <li
-              key={item.name}
-              className={`grid gap-2 py-6 transition duration-700 sm:grid-cols-[1fr_auto] sm:items-baseline sm:gap-8 ${
-                visible
-                  ? "translate-y-0 opacity-100"
-                  : "translate-y-6 opacity-0"
-              }`}
-              style={{ transitionDelay: visible ? `${120 + i * 60}ms` : "0ms" }}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {menuCategories.map((category) => (
+            <Link
+              key={category.name}
+              to={category.href}
+              className="group flex flex-col text-center sm:text-left"
             >
-              <div>
-                <div className="mb-1 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                  <h3 className="text-lg font-semibold text-white md:text-xl">
-                    {item.name}
-                  </h3>
-                  <span className="text-xs tracking-wide text-[var(--color-citrus)] uppercase">
-                    {item.category}
-                  </span>
-                </div>
-                <p className="max-w-xl text-[var(--color-cream-muted)]">
-                  {item.description}
-                </p>
+              <div className="relative mb-4 aspect-[4/5] overflow-hidden rounded-md">
+                <img
+                  src={category.image}
+                  alt={category.name}
+                  className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
               </div>
-              <p className="font-display text-lg tracking-wide text-[var(--color-citrus)] sm:text-right">
-                {item.price}
-              </p>
-            </li>
+              <h3 className="mb-1 font-display text-lg font-bold tracking-tight uppercase">
+                {category.name}
+              </h3>
+              <p className="mb-4 text-sm text-white/55">{category.description}</p>
+              <div className="mt-auto flex items-center justify-between gap-3">
+                <span className="text-sm font-medium text-white/90">
+                  {category.priceFrom}
+                </span>
+                <span
+                  aria-hidden="true"
+                  className="text-[var(--color-lime)] transition group-hover:translate-x-0.5"
+                >
+                  →
+                </span>
+              </div>
+            </Link>
           ))}
-        </ul>
-
-        <div className="mt-10">
-          <a
-            href={`https://wa.me/${site.whatsapp}?text=${encodeURIComponent("Hi BaguetteSub — I'd like to see today's menu / place an order.")}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex rounded-sm bg-[var(--color-citrus)] px-5 py-3 text-sm font-semibold text-[var(--color-ink)] transition hover:bg-[var(--color-citrus-bright)]"
-          >
-            Ask for the full menu on WhatsApp
-          </a>
         </div>
       </div>
     </section>

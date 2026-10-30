@@ -1,6 +1,10 @@
 @import "tailwindcss";
 
 :root {
+  /* Large viewport so the hero never lets the next section peek on mobile. */
+  --app-height: 100vh;
+  --app-height: 100dvh;
+  --app-height: 100lvh;
   --font-display: "Syne", system-ui, sans-serif;
   --font-body: "DM Sans", system-ui, sans-serif;
   --font-script: "Caveat", cursive;
@@ -8,6 +12,8 @@
   --color-forest-bright: #247a4c;
   --color-citrus: #e8a317;
   --color-citrus-bright: #f5b82e;
+  --color-lime: #c8f000;
+  --color-lime-bright: #d6ff2e;
   --color-ink: #12150f;
   --color-ink-muted: #4a5244;
   --color-cream: #f3f5ef;
@@ -26,11 +32,16 @@
 
 html {
   scroll-behavior: smooth;
+  height: 100%;
+  height: -webkit-fill-available;
 }
 
 body {
   margin: 0;
   min-height: 100%;
+  min-height: 100dvh;
+  min-height: 100lvh;
+  min-height: -webkit-fill-available;
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-body), system-ui, sans-serif;
@@ -39,7 +50,24 @@ body {
 }
 
 #root {
-  min-height: 100svh;
+  min-height: var(--app-height);
+}
+
+html,
+body {
+  overflow-x: clip;
+  max-width: 100%;
+}
+
+.hero-screen {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  min-height: 100lvh;
+  min-height: -webkit-fill-available;
+  min-height: var(--app-height);
+  height: var(--app-height);
 }
 
 @keyframes fade-up {
@@ -76,6 +104,88 @@ body {
 
 .font-script {
   font-family: var(--font-script), cursive;
+}
+
+/* Three-bar brand E (matches @baguettesub.gh wordmark) */
+.brand-e {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 0.52em;
+  height: 0.78em;
+  margin-left: 0.02em;
+  vertical-align: -0.02em;
+}
+
+.brand-e > span {
+  display: block;
+  height: 0.14em;
+  width: 100%;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+/* Pill CTAs — solid brand fill, quiet hover (no techy glow chase). */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  padding: 0.875rem 1.5rem;
+  background: var(--color-lime);
+  color: var(--color-ink);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.btn:hover {
+  background: var(--color-lime-bright);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn--sm {
+  padding: 0.625rem 1rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+}
+
+.btn--ghost {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.6);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #ffffff;
+}
+
+.btn--outline {
+  background: transparent;
+  border-color: rgba(18, 21, 15, 0.8);
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+.btn--outline:hover {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: #ffffff;
 }
 
 @media (prefers-reduced-motion: reduce) {
