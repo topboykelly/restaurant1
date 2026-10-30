@@ -5,7 +5,7 @@ export function Menu() {
   return (
     <section
       id="menu"
-      className="bg-[var(--color-ink)] pt-20 pb-10 text-white md:pt-28 md:pb-16"
+      className="bg-[var(--color-ink)] pt-14 pb-8 text-white md:pt-20 md:pb-12"
     >
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <div className="mb-12 flex flex-col items-center gap-6 text-center sm:mb-14 sm:flex-row sm:items-end sm:justify-between sm:text-left">

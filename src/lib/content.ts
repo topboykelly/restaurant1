@@ -26,7 +26,7 @@ export const site = {
 
 export const vibeCopy = {
   eyebrow: "Our story",
-  headline: "More than just a restaurant.",
+  headline: "Where exceptional taste meets elegance.",
   body: "A bright, glass-fronted spot on La-Bawaleshi Road — grill plates, fresh baguettes, and a living-wall neon that says it all. Dine in, grab takeout, or get delivery. Vegan-friendly options on the menu.",
 } as const;
 

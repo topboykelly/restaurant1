@@ -7,7 +7,7 @@ export function Visit() {
   return (
     <section
       id="visit"
-      className="bg-[var(--color-cream)] py-20 text-[var(--color-ink)] md:py-28"
+      className="bg-[var(--color-cream)] py-14 text-[var(--color-ink)] md:py-20"
     >
       <div className="mx-auto grid w-full max-w-6xl gap-12 px-5 text-center md:grid-cols-3 md:gap-10 md:px-8 md:text-left lg:gap-14">
         <div className="flex min-w-0 flex-col justify-center">

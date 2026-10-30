@@ -2,7 +2,7 @@ import { images, vibeCopy } from "@/lib/content";
 
 export function Vibe() {
   return (
-    <section id="story" className="bg-[var(--color-cream)] py-20 md:py-28">
+    <section id="story" className="bg-[var(--color-cream)] py-14 md:py-20">
       <div className="mx-auto grid w-full max-w-6xl items-center gap-12 px-5 text-center md:grid-cols-2 md:gap-16 md:px-8 md:text-left">
         <div className="mx-auto w-full min-w-0 max-w-xl md:mx-0">
           <p className="mb-3 text-sm font-semibold tracking-[0.18em] text-[var(--color-forest)] uppercase">
