@@ -48,6 +48,12 @@ export const reviewCopy = {
   body: "Share your experience — it goes straight to the manager on WhatsApp.",
 } as const;
 
+/** Prefills WhatsApp with a specific dish order. */
+export function whatsappOrderUrl(itemName: string, price: string) {
+  const text = `Hi BaguetteSub — I'd like to order: ${itemName} (${price}).`;
+  return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}`;
+}
+
 /** Prefills WhatsApp with a guest review for the manager. */
 export function whatsappReviewUrl(input: {
   name: string;

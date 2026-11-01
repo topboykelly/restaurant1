@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { menuSections, menuWelcome, site } from "@/lib/content";
+import {
+  menuSections,
+  menuWelcome,
+  site,
+  whatsappOrderUrl,
+} from "@/lib/content";
 
 export function MenuPage() {
   useEffect(() => {
@@ -103,7 +108,7 @@ export function MenuPage() {
                       {group.items.map((item) => (
                         <li
                           key={`${group.title ?? section.id}-${item.name}`}
-                          className="flex flex-col gap-1 py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-8 sm:py-5"
+                          className="flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:py-5"
                         >
                           <div className="min-w-0 text-center sm:text-left">
                             <h4 className="font-display text-base font-bold tracking-tight uppercase sm:text-lg">
@@ -115,9 +120,20 @@ export function MenuPage() {
                               </p>
                             ) : null}
                           </div>
-                          <p className="shrink-0 text-center text-sm font-semibold tracking-wide text-[var(--color-lime)] sm:text-right">
-                            {item.price}
-                          </p>
+                          <div className="flex shrink-0 items-center justify-center gap-3 sm:justify-end">
+                            <p className="text-sm font-semibold tracking-wide text-[var(--color-lime)]">
+                              {item.price}
+                            </p>
+                            <a
+                              href={whatsappOrderUrl(item.name, item.price)}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label={`Order ${item.name} on WhatsApp`}
+                              className="text-lg leading-none text-white/70 transition hover:text-[var(--color-lime)]"
+                            >
+                              →
+                            </a>
+                          </div>
                         </li>
                       ))}
                     </ul>
