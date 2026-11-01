@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   menuSections,
@@ -8,9 +8,137 @@ import {
 } from "@/lib/content";
 
 export function MenuPage() {
+  const [activeId, setActiveId] = useState(menuSections[0]?.id ?? "");
+  const navRef = useRef<HTMLDivElement>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
+  const clickingRef = useRef(false);
+  const scrollFrameRef = useRef(0);
+
   useEffect(() => {
     window.scrollTo(0, 0);
+    return () => {
+      if (scrollFrameRef.current) cancelAnimationFrame(scrollFrameRef.current);
+    };
   }, []);
+
+  function stickyOffset() {
+    const sticky = stickyRef.current;
+    if (!sticky) return 120;
+    // Use the stuck position (CSS `top` + bar height), not the current
+    // in-flow rect — otherwise taps from the page top undershoot badly.
+    const stuckTop = Number.parseFloat(getComputedStyle(sticky).top) || 0;
+    return stuckTop + sticky.offsetHeight + 8;
+  }
+
+  function centerActivePill(id: string) {
+    const nav = navRef.current;
+    const pill = nav?.querySelector<HTMLElement>(`[data-section-id="${id}"]`);
+    if (!nav || !pill) return;
+    const navRect = nav.getBoundingClientRect();
+    const pillRect = pill.getBoundingClientRect();
+    const delta =
+      pillRect.left - navRect.left - (navRect.width - pillRect.width) / 2;
+    nav.scrollTo({ left: nav.scrollLeft + delta, behavior: "smooth" });
+  }
+
+  function scrollToSection(id: string) {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    if (scrollFrameRef.current) cancelAnimationFrame(scrollFrameRef.current);
+
+    clickingRef.current = true;
+    setActiveId(id);
+    centerActivePill(id);
+    history.replaceState(null, "", `#${id}`);
+
+    const offset = stickyOffset();
+    el.style.scrollMarginTop = `${offset}px`;
+
+    const root = document.documentElement;
+    const previousBehavior = root.style.scrollBehavior;
+    root.style.scrollBehavior = "auto";
+
+    // Instant first for accuracy, then a short ease if we still need polish.
+    el.scrollIntoView({ block: "start", behavior: "auto" });
+
+    const startY = window.scrollY;
+    const targetY = Math.max(
+      0,
+      startY + el.getBoundingClientRect().top - offset,
+    );
+    const distance = targetY - startY;
+
+    if (Math.abs(distance) < 2) {
+      root.style.scrollBehavior = previousBehavior;
+      window.setTimeout(() => {
+        clickingRef.current = false;
+      }, 200);
+      return;
+    }
+
+    const duration = Math.min(500, Math.max(180, Math.abs(distance) * 0.35));
+    const startTime = performance.now();
+    const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+
+    const step = (now: number) => {
+      const progress = Math.min((now - startTime) / duration, 1);
+      window.scrollTo(0, startY + distance * easeOutCubic(progress));
+      if (progress < 1) {
+        scrollFrameRef.current = requestAnimationFrame(step);
+        return;
+      }
+      window.scrollTo(
+        0,
+        Math.max(0, window.scrollY + el.getBoundingClientRect().top - offset),
+      );
+      root.style.scrollBehavior = previousBehavior;
+      scrollFrameRef.current = 0;
+      window.setTimeout(() => {
+        clickingRef.current = false;
+      }, 200);
+    };
+
+    scrollFrameRef.current = requestAnimationFrame(step);
+  }
+
+  useEffect(() => {
+    const sections = menuSections
+      .map((section) => document.getElementById(section.id))
+      .filter((el): el is HTMLElement => Boolean(el));
+
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (clickingRef.current) return;
+
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort(
+            (a, b) =>
+              a.boundingClientRect.top - b.boundingClientRect.top,
+          );
+
+        if (visible[0]?.target.id) {
+          setActiveId(visible[0].target.id);
+        }
+      },
+      {
+        // Account for sticky header + category bar
+        rootMargin: "-28% 0px -55% 0px",
+        threshold: [0, 0.25, 0.5],
+      },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (clickingRef.current) return;
+    centerActivePill(activeId);
+  }, [activeId]);
 
   return (
     <div className="bg-[var(--color-ink)] text-white">
@@ -51,24 +179,43 @@ export function MenuPage() {
         </div>
       </section>
 
-      <div className="sticky top-[3.25rem] z-40 border-b border-white/10 bg-[var(--color-ink)]/95 backdrop-blur-md md:top-[4rem]">
-        <div className="mx-auto flex max-w-6xl gap-2 overflow-x-auto px-5 py-3 [-ms-overflow-style:none] [scrollbar-width:none] md:px-8 [&::-webkit-scrollbar]:hidden">
-          {menuSections.map((section) => (
-            <a
-              key={section.id}
-              href={`#${section.id}`}
-              className="shrink-0 rounded-full border border-white/15 px-4 py-2 text-[0.65rem] font-semibold tracking-[0.14em] text-white/70 uppercase transition hover:border-[var(--color-lime)]/50 hover:text-[var(--color-lime)]"
-            >
-              {section.name}
-            </a>
-          ))}
+      <div
+        ref={stickyRef}
+        className="sticky top-[3.25rem] z-40 border-b border-white/10 bg-[var(--color-ink)]/95 backdrop-blur-md md:top-[4rem]"
+      >
+        <div
+          ref={navRef}
+          className="mx-auto flex max-w-6xl gap-2 overflow-x-auto px-5 py-3 [-ms-overflow-style:none] [scrollbar-width:none] md:px-8 [&::-webkit-scrollbar]:hidden"
+        >
+          {menuSections.map((section) => {
+            const active = section.id === activeId;
+            return (
+              <a
+                key={section.id}
+                href={`#${section.id}`}
+                data-section-id={section.id}
+                aria-current={active ? "true" : undefined}
+                onClick={(event) => {
+                  event.preventDefault();
+                  scrollToSection(section.id);
+                }}
+                className={`shrink-0 rounded-full border px-4 py-2 text-[0.65rem] font-semibold tracking-[0.14em] uppercase transition ${
+                  active
+                    ? "border-[var(--color-lime)] bg-[var(--color-lime)] text-[var(--color-ink)]"
+                    : "border-white/15 text-white/70 hover:border-[var(--color-lime)]/50 hover:text-[var(--color-lime)]"
+                }`}
+              >
+                {section.name}
+              </a>
+            );
+          })}
         </div>
       </div>
 
       <div className="mx-auto max-w-6xl px-5 py-14 md:px-8 md:py-20">
         <div className="flex flex-col gap-16 md:gap-20">
           {menuSections.map((section) => (
-            <section key={section.id} id={section.id} className="scroll-mt-36">
+            <section key={section.id} id={section.id} className="scroll-mt-32 md:scroll-mt-40">
               <div className="mb-8 grid items-end gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,14rem)] md:gap-10">
                 <div className="text-center md:text-left">
                   <h2 className="font-display text-2xl font-extrabold tracking-tight text-balance uppercase sm:text-3xl md:text-4xl">
@@ -85,7 +232,8 @@ export function MenuPage() {
                     src={section.image}
                     alt={section.imageAlt}
                     className="absolute inset-0 h-full w-full object-cover"
-                    loading="lazy"
+                    loading="eager"
+                    decoding="async"
                   />
                 </div>
               </div>
