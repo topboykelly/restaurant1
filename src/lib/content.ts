@@ -44,7 +44,7 @@ export const visitCopy = {
 
 export const reviewCopy = {
   eyebrow: "Reviews",
-  headline: "Tell us how we did.",
+  headline: "Your experience, our standard.",
   body: "Share your experience — it goes straight to the manager on WhatsApp.",
 } as const;
 
