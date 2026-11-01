@@ -42,6 +42,30 @@ export const visitCopy = {
   body: "Dine in, take away or get it delivered. We’re always here.",
 } as const;
 
+export const reviewCopy = {
+  eyebrow: "Reviews",
+  headline: "Tell us how we did.",
+  body: "Share your experience — it goes straight to the manager on WhatsApp.",
+} as const;
+
+/** Prefills WhatsApp with a guest review for the manager. */
+export function whatsappReviewUrl(input: {
+  name: string;
+  rating: number;
+  comment: string;
+}) {
+  const stars = "★".repeat(input.rating) + "☆".repeat(5 - input.rating);
+  const text = [
+    "Hi BaguetteSub — I'd like to leave a review.",
+    "",
+    `Name: ${input.name}`,
+    `Rating: ${stars} (${input.rating}/5)`,
+    "",
+    input.comment,
+  ].join("\n");
+  return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}`;
+}
+
 export type MenuCategory = {
   name: string;
   description: string;
@@ -101,10 +125,8 @@ export const images = {
   hero:
     "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=2400&q=90",
   heroVideo: "/hero.mp4",
-  vibe:
-    "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1400&q=80",
-  space:
-    "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1600&q=80",
+  vibe: "/space/story.jpg",
+  space: "/space/dining.jpg",
   plate:
     "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=80",
 } as const;
@@ -117,5 +139,6 @@ export const footerLinks = [
   { to: "/menu", label: "Menu" },
   { to: "/", label: "Our Story", hash: "#story" },
   { to: "/", label: "Gallery", hash: "#gallery" },
+  { to: "/", label: "Reviews", hash: "#reviews" },
   { to: "/", label: "Contact", hash: "#contact" },
 ] as const;

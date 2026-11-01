@@ -16,10 +16,10 @@ export function Vibe() {
           </p>
         </div>
 
-        <div className="relative mx-auto aspect-[4/5] w-full min-w-0 max-w-md overflow-hidden md:mx-0 md:max-w-none md:aspect-[5/6]">
+        <div className="relative mx-auto aspect-[4/5] w-full min-w-0 max-w-md overflow-hidden rounded-2xl md:mx-0 md:max-w-none md:aspect-[5/6]">
           <img
             src={images.vibe}
-            alt="Bright modern restaurant dining room"
+            alt="BaguetteSub photo corner with neon Good Food Good Mood sign"
             className="absolute inset-0 h-full w-full object-cover"
             loading="lazy"
           />
