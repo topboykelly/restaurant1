@@ -3,7 +3,7 @@ type WordmarkProps = {
 };
 
 export function Wordmark({ size = "nav" }: WordmarkProps) {
-  const heightClass = size === "nav" ? "h-10 md:h-12" : "h-9";
+  const heightClass = size === "nav" ? "h-8 md:h-11" : "h-9";
 
   return (
     <img

@@ -37,7 +37,7 @@ export function Nav() {
           : "bg-transparent text-white"
       }`}
     >
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3 md:px-8 md:py-4">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-2 md:px-8 md:py-3">
         <Link to="/" className="shrink-0">
           <Wordmark size="nav" />
         </Link>
@@ -84,7 +84,7 @@ export function Nav() {
 
         <button
           type="button"
-          className="relative flex h-11 w-11 items-center justify-center rounded-full text-white transition hover:bg-white/10 md:hidden"
+          className="relative flex h-9 w-9 items-center justify-center rounded-full text-white transition hover:bg-white/10 md:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}

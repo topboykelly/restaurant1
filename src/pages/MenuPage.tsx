@@ -14,7 +14,7 @@ export function MenuPage() {
 
   return (
     <div className="bg-[var(--color-ink)] text-white">
-      <section className="relative overflow-hidden border-b border-white/10 pt-28 pb-14 md:pt-32 md:pb-16">
+      <section className="relative overflow-hidden border-b border-white/10 pt-20 pb-14 md:pt-28 md:pb-16">
         <div
           className="pointer-events-none absolute inset-0 opacity-40"
           style={{
@@ -51,7 +51,7 @@ export function MenuPage() {
         </div>
       </section>
 
-      <div className="sticky top-[3.75rem] z-40 border-b border-white/10 bg-[var(--color-ink)]/95 backdrop-blur-md md:top-[4.25rem]">
+      <div className="sticky top-[3.25rem] z-40 border-b border-white/10 bg-[var(--color-ink)]/95 backdrop-blur-md md:top-[4rem]">
         <div className="mx-auto flex max-w-6xl gap-2 overflow-x-auto px-5 py-3 [-ms-overflow-style:none] [scrollbar-width:none] md:px-8 [&::-webkit-scrollbar]:hidden">
           {menuSections.map((section) => (
             <a
