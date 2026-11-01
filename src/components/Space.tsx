@@ -14,16 +14,9 @@ export function Space() {
           <h2 className="mb-5 font-display text-2xl font-extrabold leading-[1.15] tracking-tight text-balance uppercase sm:text-3xl md:text-4xl">
             {spaceCopy.headline}
           </h2>
-          <p className="mx-auto mb-8 max-w-md text-base leading-relaxed text-white/70 md:mx-0 md:text-lg">
+          <p className="mx-auto max-w-md text-base leading-relaxed text-white/70 md:mx-0 md:text-lg">
             {spaceCopy.body}
           </p>
-          <a
-            href="#gallery"
-            className="inline-flex items-center justify-center gap-2 text-xs font-semibold tracking-[0.16em] text-[var(--color-lime)] uppercase transition hover:text-[var(--color-lime-bright)]"
-          >
-            Explore the gallery
-            <span aria-hidden="true">→</span>
-          </a>
         </div>
 
         <div className="relative mx-auto min-h-[280px] w-full min-w-0 max-w-md overflow-hidden rounded-md md:mx-0 md:max-w-none md:min-h-[420px]">

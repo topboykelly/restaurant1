@@ -68,10 +68,10 @@ export function Visit() {
           )}
         </div>
 
-        <div className="flex flex-col justify-center gap-7">
-          <div className="flex items-start justify-center gap-3 md:justify-start">
+        <div className="mx-auto flex w-full max-w-xs flex-col justify-center gap-7 md:mx-0 md:max-w-none">
+          <div className="flex items-center gap-3">
             <ClockIcon />
-            <div>
+            <div className="min-w-0 text-left">
               <p className="mb-1 text-xs font-semibold tracking-[0.16em] text-[var(--color-forest)] uppercase">
                 Opening hours
               </p>
@@ -81,9 +81,9 @@ export function Visit() {
             </div>
           </div>
 
-          <div className="flex items-start justify-center gap-3 md:justify-start">
+          <div className="flex items-center gap-3">
             <PhoneIcon />
-            <div>
+            <div className="min-w-0 text-left">
               <p className="mb-1 text-xs font-semibold tracking-[0.16em] text-[var(--color-forest)] uppercase">
                 Phone
               </p>
@@ -96,9 +96,9 @@ export function Visit() {
             </div>
           </div>
 
-          <div className="flex items-start justify-center gap-3 md:justify-start">
+          <div className="flex items-center gap-3">
             <InstagramIcon />
-            <div>
+            <div className="min-w-0 text-left">
               <p className="mb-1 text-xs font-semibold tracking-[0.16em] text-[var(--color-forest)] uppercase">
                 Instagram
               </p>
@@ -122,7 +122,7 @@ function ClockIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      className="mt-0.5 h-5 w-5 shrink-0 text-[var(--color-forest)]"
+      className="h-5 w-5 shrink-0 text-[var(--color-forest)]"
       fill="none"
       stroke="currentColor"
       strokeWidth="1.8"
@@ -138,7 +138,7 @@ function PhoneIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      className="mt-0.5 h-5 w-5 shrink-0 text-[var(--color-forest)]"
+      className="h-5 w-5 shrink-0 text-[var(--color-forest)]"
       fill="currentColor"
       aria-hidden="true"
     >
@@ -151,7 +151,7 @@ function InstagramIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      className="mt-0.5 h-5 w-5 shrink-0 text-[var(--color-forest)]"
+      className="h-5 w-5 shrink-0 text-[var(--color-forest)]"
       fill="currentColor"
       aria-hidden="true"
     >
